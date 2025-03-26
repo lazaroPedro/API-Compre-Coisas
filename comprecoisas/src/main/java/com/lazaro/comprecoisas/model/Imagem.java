@@ -3,16 +3,18 @@ package com.lazaro.comprecoisas.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "imagens")
 public class Imagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_imagens")
     private Long id;
 
     private String caminho;
 
     @ManyToOne
-    @JoinColumn(name = "id_produtos")
-    Produto produto;
+    @JoinColumn(name = "fk_produtos")
+    private Produto produto;
 
     public Imagem() {}
 

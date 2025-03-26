@@ -1,37 +1,59 @@
 package com.lazaro.comprecoisas.controller;
 
+import com.lazaro.comprecoisas.model.Categoria;
 import com.lazaro.comprecoisas.model.Produto;
 import com.lazaro.comprecoisas.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(path = "/produto")
 public class ProdutoController {
 
+    private final ProdutoService produtoService;
+
     @Autowired
-    private ProdutoService produtoService;
+    public ProdutoController(ProdutoService produtoService) {
+        this.produtoService = produtoService;
+    }
 
     @GetMapping
-    @ResponseBody
     public List<Produto> showProdutos() {
         return produtoService.buscarProdutos();
     }
-/*
-    @GetMapping(path = "/{id}")
-    @ResponseBody
-    public ResponseEntity<Produto> showProdutoByID(@PathVariable String id) {
 
-        return produtoService.buscarProdutoPorId(id);
+    @GetMapping(path = "/id/{id}")
+    public ResponseEntity<Produto> showProdutoByID(@PathVariable Long id) {
+        Optional<Produto> prod = produtoService.buscarProdutoPorId(id);
+        if (prod.isPresent()) {
+            return ResponseEntity.ok(prod.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
+    @GetMapping(path = "/cat/{categoria}")
+    public List<Produto> showProdutosByCategoria(@PathVariable Long categoria) {
+        return produtoService.buscarProdutosPorCategoria(categoria);
+    }
+    @GetMapping(path = "/cat/")
+    public List<Categoria> showCategoria() {
+        return produtoService.buscarCat();
+    }
     @PostMapping
-    public ResponseEntity<Produto> salvarProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> salvarProduto(@Valid @RequestBody Produto produto) {
+        Optional<Produto> prod = produtoService.salvarProduto(produto);
+        if (prod.isPresent()) {
+            return ResponseEntity.ok(prod.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
 
 
-    }*/
+    }
 }

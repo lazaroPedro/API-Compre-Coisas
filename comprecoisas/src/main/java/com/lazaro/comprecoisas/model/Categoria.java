@@ -8,16 +8,22 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_categorias")
     private Long id;
 
     private String nome;
 
+
     @ManyToOne
-    @JoinColumn(name = "categoria_pai")
+    @JoinColumn(name = "fk_categoria_pai")
     private Categoria categoriaPai;
 
 
     public Categoria() {}
+
+    public Categoria(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

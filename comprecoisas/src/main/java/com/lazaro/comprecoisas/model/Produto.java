@@ -1,7 +1,10 @@
 package com.lazaro.comprecoisas.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -10,23 +13,36 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_produtos")
     private Long id;
-
+    @NotBlank
     private String titulo;
-
+    @NotBlank
     private String descricao;
 
-    private double valor;
+    @Positive
+    @NotNull
+    private Double valor;
 
-    private float desconto;
+
+    @Min(0)
+    @Max(100)
+    private Float desconto;
+
+
+    @CreationTimestamp
     @Column(name = "data_cadastro")
-    private Date dataCadastro;
+    private LocalDateTime dataCadastro;
 
-    @OneToOne
-    @JoinColumn(name = "categoria")
+
+    @ManyToOne
+    @JoinColumn(name = "fk_sub_categoria")
+    @NotNull
     private Categoria subCategoria;
 
-    public Produto() {}
+
+    public Produto() {
+    }
 
     public Long getId() {
         return id;
@@ -52,27 +68,27 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public float getDesconto() {
+    public Float getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(float desconto) {
+    public void setDesconto(Float desconto) {
         this.desconto = desconto;
     }
 
-    public Date getDataCadastro() {
+    public LocalDateTime getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
