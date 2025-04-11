@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
-
+    List<Categoria> findCategoriaByCategoriaPai(Categoria categoriaPai);
 }

@@ -1,11 +1,8 @@
 package com.lazaro.comprecoisas.model;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "produtos")
@@ -15,15 +12,16 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_produtos")
     private Long id;
+
     @NotBlank
     private String titulo;
+
     @NotBlank
     private String descricao;
 
     @Positive
     @NotNull
     private Double valor;
-
 
     @Min(0)
     @Max(100)
@@ -40,6 +38,15 @@ public class Produto {
     @NotNull
     private Categoria subCategoria;
 
+    private Status statusProduto;
+
+    public Status getStatusProduto() {
+        return statusProduto;
+    }
+
+    public void setStatusProduto(Status statusProduto) {
+        this.statusProduto = statusProduto;
+    }
 
     public Produto() {
     }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/produto")
+@RequestMapping(path = "/api/produto")
 public class ProdutoController {
 
     private final ProdutoService produtoService;
@@ -41,10 +41,12 @@ public class ProdutoController {
     public List<Produto> showProdutosByCategoria(@PathVariable Long categoria) {
         return produtoService.buscarProdutosPorCategoria(categoria);
     }
+
     @GetMapping(path = "/cat/")
     public List<Categoria> showCategoria() {
         return produtoService.buscarCat();
     }
+
     @PostMapping
     public ResponseEntity<Produto> salvarProduto(@Valid @RequestBody Produto produto) {
         Optional<Produto> prod = produtoService.salvarProduto(produto);
@@ -55,5 +57,13 @@ public class ProdutoController {
         }
 
 
+    }
+    @DeleteMapping(path = "/id/{id}")
+    public ResponseEntity<Produto> excluirProduto( @RequestBody Long id) {
+        return null;
+    }
+    @PatchMapping
+    public ResponseEntity<Produto> atualizarProduto( @RequestBody Produto produto) {
+        return null;
     }
 }
