@@ -30,11 +30,7 @@ public class ProdutoController {
     @GetMapping(path = "/id/{id}")
     public ResponseEntity<Produto> showProdutoByID(@PathVariable Long id) {
         Optional<Produto> prod = produtoService.buscarProdutoPorId(id);
-        if (prod.isPresent()) {
-            return ResponseEntity.ok(prod.get());
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+        return prod.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping(path = "/cat/{categoria}")
@@ -42,7 +38,7 @@ public class ProdutoController {
         return produtoService.buscarProdutosPorCategoria(categoria);
     }
 
-    @GetMapping(path = "/cat/")
+    @GetMapping(path = "/cat")
     public List<Categoria> showCategoria() {
         return produtoService.buscarCat();
     }
@@ -50,11 +46,7 @@ public class ProdutoController {
     @PostMapping
     public ResponseEntity<Produto> salvarProduto(@Valid @RequestBody Produto produto) {
         Optional<Produto> prod = produtoService.salvarProduto(produto);
-        if (prod.isPresent()) {
-            return ResponseEntity.ok(prod.get());
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+        return prod.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
 
     }

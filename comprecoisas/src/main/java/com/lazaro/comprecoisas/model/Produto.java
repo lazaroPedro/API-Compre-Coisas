@@ -10,7 +10,7 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_produtos")
+    @Column(name = "id_produto")
     private Long id;
 
     @NotBlank
@@ -34,11 +34,11 @@ public class Produto {
 
 
     @ManyToOne
-    @JoinColumn(name = "fk_sub_categoria")
+    @JoinColumn(name = "categoria")
     @NotNull
     private Categoria subCategoria;
 
-    private Status statusProduto;
+    /*   private Status statusProduto;
 
     public Status getStatusProduto() {
         return statusProduto;
@@ -46,7 +46,7 @@ public class Produto {
 
     public void setStatusProduto(Status statusProduto) {
         this.statusProduto = statusProduto;
-    }
+    }*/
 
     public Produto() {
     }

@@ -27,9 +27,10 @@ public class ProdutoService {
     }
 
     public List<Produto> buscarProdutos() {
-        return repoProd.findAll().stream().filter(produto -> {
+       /* return repoProd.findAll().stream().filter(produto -> {
             return (produto.getStatusProduto() == Status.ATIVO);
-        }).collect(Collectors.toList());
+        }).collect(Collectors.toList());*/
+        return repoProd.findAll();
     }
     public List<Categoria> buscarCat() {
         return repoCat.findAll();
@@ -90,7 +91,6 @@ public class ProdutoService {
     }
     public void excluirProduto(Long id){
         Produto produto = repoProd.findById(id).get();
-        produto.setStatusProduto(Status.EXCLUIDO);
         repoProd.save(produto);
     }
 }

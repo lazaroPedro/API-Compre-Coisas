@@ -17,7 +17,7 @@ public class Pedido {
     private BigDecimal valorTotal;
 
     private BigDecimal frete;
-
+/*
     @ManyToOne
     private Entrega entrega;
 
@@ -30,5 +30,5 @@ public class Pedido {
             joinColumns = @JoinColumn(name = "fk_produtos"),
             inverseJoinColumns = @JoinColumn(name = "fk_pedidos")
     )
-    private List<Produto> produto;
+    private List<Produto> produto;*/
 }
