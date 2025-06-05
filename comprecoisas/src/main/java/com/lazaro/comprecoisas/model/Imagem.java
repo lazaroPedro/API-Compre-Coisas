@@ -7,13 +7,13 @@ import jakarta.persistence.*;
 public class Imagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_imagens")
+    @Column(name = "id_imagem")
     private Long id;
 
     private String caminho;
 
     @ManyToOne
-    @JoinColumn(name = "fk_produtos")
+    @JoinColumn(name = "fk_produto")
     private Produto produto;
 
     public Imagem() {}

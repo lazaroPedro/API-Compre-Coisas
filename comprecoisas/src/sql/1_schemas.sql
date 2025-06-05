@@ -1,6 +1,6 @@
 -- Criar tipos ENUM usados
 CREATE TYPE genero AS ENUM ('MASCULINO', 'FEMININO', 'NAO_INFORMAR', 'OUTRO');
-CREATE TYPE status_conta AS ENUM ('ATIVO', 'EXCLUIDO', 'SUSPENSO', 'ANALISE');
+CREATE TYPE status_conta AS ENUM ('ATIVA', 'EXCLUIDA', 'SUSPENSA', 'ANALISE');
 CREATE TYPE status_produto AS ENUM ('ATIVO', 'EXCLUIDO', 'SEM_ESTOQUE', 'SUSPENSO', 'VENDIDO', 'RESERVADO');
 CREATE TYPE status_entrega AS ENUM ('AGUARDANDO_ENVIO', 'EM_TRANSITO', 'ATRASADO', 'ENTREGUE', 'CANCELADA');
 CREATE TYPE status_pedido AS ENUM ('FINALIZADO', 'EXCLUIDO', 'SUSPENSO', 'PROCESSAMENTO');
@@ -25,7 +25,7 @@ CREATE TABLE usuarios (
                           cpf CHAR(11) UNIQUE NOT NULL,
                           telefone VARCHAR(15) NOT NULL,
                           data_nascimento TIMESTAMP NOT NULL,
-                          data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                          data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                           genero genero NOT NULL,
                           status_conta status_conta NOT NULL
 );
@@ -48,7 +48,7 @@ CREATE TABLE produtos (
                           descricao TEXT NOT NULL,
                           valor DECIMAL(10,2) NOT NULL,
                           desconto FLOAT NOT NULL DEFAULT 0,
-                          data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                          data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                           status_produto status_produto NOT NULL,
                           fk_endereco_origem BIGINT NOT NULL,
                           fk_categoria BIGINT NOT NULL,
@@ -70,17 +70,18 @@ CREATE TABLE entregas (
                           frete DECIMAL(10,2) NOT NULL,
                           status_entrega status_entrega NOT NULL,
                           id_rastreamento VARCHAR(255) NOT NULL,
-                          tipo_entrega VARCHAR(255) NOT NULL,
-                          fk_endereco BIGINT NOT NULL,
+                          transportadora VARCHAR(255) NOT NULL,
+                          fk_endereco_entrega BIGINT NOT NULL,
                           previsao_entrega TIMESTAMP NOT NULL,
                           data_entrega TIMESTAMP,
-                          FOREIGN KEY (fk_endereco) REFERENCES enderecos(id_endereco)
+                          FOREIGN KEY (fk_endereco_entrega) REFERENCES enderecos(id_endereco)
 );
 
 CREATE TABLE pagamentos (
                             id_pagamento BIGSERIAL PRIMARY KEY,
                             valor_total DECIMAL(10,2),
                             tipo_pagamento tipo_pagamento NOT NULL,
+                            data_pagamento TIMESTAMP default CURRENT_TIMESTAMP,
                             status_pagamento status_pagamento NOT NULL,
                             id_transacao VARCHAR(255) NOT NULL
 );

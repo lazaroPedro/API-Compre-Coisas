@@ -1,4 +1,6 @@
 package com.lazaro.comprecoisas.model;
+import com.lazaro.comprecoisas.model.enums.StatusPedido;
+import com.lazaro.comprecoisas.model.enums.StatusProduto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,22 +36,20 @@ public class Produto {
 
 
     @ManyToOne
-    @JoinColumn(name = "categoria")
+    @JoinColumn(name = "fk_categoria")
     @NotNull
-    private Categoria subCategoria;
+    private Categoria categoria;
 
-    /*   private Status statusProduto;
+    @Column(name = "status_produto")
+    private StatusProduto statusProduto;
 
-    public Status getStatusProduto() {
-        return statusProduto;
-    }
+    @OneToOne
+    @JoinColumn(name = "fk_endereco_origem")
+    private Endereco enderecoOrigem;
 
-    public void setStatusProduto(Status statusProduto) {
-        this.statusProduto = statusProduto;
-    }*/
-
-    public Produto() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "fk_vendedor")
+    private Usuario vendedor;
 
     public Long getId() {
         return id;
@@ -99,11 +99,38 @@ public class Produto {
         this.dataCadastro = dataCadastro;
     }
 
-    public Categoria getSubCategoria() {
-        return subCategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setSubCategoria(Categoria subCategoria) {
-        this.subCategoria = subCategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public StatusProduto getStatusProduto() {
+        return statusProduto;
+    }
+
+    public void setStatusProduto(StatusProduto statusProduto) {
+        this.statusProduto = statusProduto;
+    }
+
+    public Endereco getEnderecoOrigem() {
+        return enderecoOrigem;
+    }
+
+    public void setEnderecoOrigem(Endereco enderecoOrigem) {
+        this.enderecoOrigem = enderecoOrigem;
+    }
+
+    public Usuario getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Usuario vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public Produto() {
     }
 }

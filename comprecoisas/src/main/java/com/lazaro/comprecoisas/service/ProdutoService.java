@@ -3,7 +3,6 @@ package com.lazaro.comprecoisas.service;
 import com.lazaro.comprecoisas.exceptions.NullCategoriaPaiException;
 import com.lazaro.comprecoisas.model.Categoria;
 import com.lazaro.comprecoisas.model.Produto;
-import com.lazaro.comprecoisas.model.Status;
 import com.lazaro.comprecoisas.repository.CategoriaRepository;
 import com.lazaro.comprecoisas.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProdutoService {
