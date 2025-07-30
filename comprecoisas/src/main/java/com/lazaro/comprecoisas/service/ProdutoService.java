@@ -1,94 +1,74 @@
 package com.lazaro.comprecoisas.service;
 
-import com.lazaro.comprecoisas.exceptions.NullCategoriaPaiException;
+import com.lazaro.comprecoisas.infra.exceptions.NullCategoriaPaiException;
+import com.lazaro.comprecoisas.mappers.MapperEndereco;
+import com.lazaro.comprecoisas.mappers.MapperProduto;
 import com.lazaro.comprecoisas.model.Categoria;
 import com.lazaro.comprecoisas.model.Produto;
+import com.lazaro.comprecoisas.model.Usuario;
+import com.lazaro.comprecoisas.model.dtos.ProdutoDTO;
+import com.lazaro.comprecoisas.model.enums.StatusProduto;
 import com.lazaro.comprecoisas.repository.CategoriaRepository;
 import com.lazaro.comprecoisas.repository.ProdutoRepository;
+import com.lazaro.comprecoisas.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProdutoService {
     private final ProdutoRepository repoProd;
-
     private final CategoriaRepository repoCat;
+    private final UsuarioRepository repoUsu;
 
     @Autowired
-    public ProdutoService(ProdutoRepository repoProd, CategoriaRepository repoCat) {
+    public ProdutoService(ProdutoRepository repoProd, CategoriaRepository repoCat, UsuarioRepository repoUsu) {
         this.repoProd = repoProd;
         this.repoCat = repoCat;
+        this.repoUsu = repoUsu;
     }
 
-    public List<Produto> buscarProdutos() {
-       /* return repoProd.findAll().stream().filter(produto -> {
-            return (produto.getStatusProduto() == Status.ATIVO);
-        }).collect(Collectors.toList());*/
-        return repoProd.findAll();
-    }
-    public List<Categoria> buscarCat() {
-        return repoCat.findAll();
-    }
-    public Optional<Produto> buscarProdutoPorId(Long id) {
-
-            return repoProd.findById(id);
-
+    public List<ProdutoDTO> findAll() {
+       return repoProd.findByStatusProduto(StatusProduto.ATIVO)
+               .stream()
+               .map(MapperProduto::toDTO)
+               .toList();
 
     }
-
-    public Optional<Produto> salvarProduto(Produto produto) {
-        Optional<Categoria> categoriaOp = repoCat.findById(produto.getSubCategoria().getId());
-          produto.setSubCategoria(categoriaOp.get());
-
-        if (categoriaOp.isPresent()) {
-            if (produto.getSubCategoria().getCategoriaPai() == null){
-                throw new NullCategoriaPaiException();
-            }
-            if(produto.getDesconto() == null){
-                produto.setDesconto(0f);
-            }
-            produto.setId(null);
-            repoProd.save(produto);
-            return Optional.of(produto);
-        }else{
-            return Optional.empty();
-        }
-
-
+    public Optional<ProdutoDTO> findById(Long id) {
+        return repoProd.findById(id).map(MapperProduto::toDTO);
     }
-    public List<Produto> buscarProdutoPorCategoriaPai(Categoria pai) {
-        List<Produto> lista = new ArrayList<>();
-        repoCat.findCategoriaByCategoriaPai(pai).forEach(categoria -> {
-            lista.addAll(repoProd.findProdutoBySubCategoria(categoria));
-        });
-
-        return lista;
-    }
-
-
-
-
-    public List<Produto> buscarProdutosPorCategoria(Long categoria) {
+    public List<ProdutoDTO> findByCategoria(Long categoria) {
         Optional<Categoria> categoriaOp = repoCat.findById(categoria);
-        if (categoriaOp.isPresent()) {
-            if (categoriaOp.get().getCategoriaPai() == null) {
-                return  buscarProdutoPorCategoriaPai(categoriaOp.get());
-            }else
-         return repoProd.findProdutoBySubCategoria(categoriaOp.get());
-        } else {
-            return null;
+        return categoriaOp.map(value -> repoProd.findByCategoria(value)
+                .stream()
+                .map(MapperProduto::toDTO)
+                .toList()).orElseGet(List::of);
+
+    }
+
+    public Optional<ProdutoDTO> salvarProduto(ProdutoDTO produtoDTO) {
+        Produto produto = MapperProduto.toEntity(produtoDTO);
+        Categoria cat = repoCat.findById(produtoDTO.getCategoriaId())
+                .orElseThrow(() -> new EntityNotFoundException("Categoria with ID: " + produtoDTO.getCategoriaId() + " not found"));
+        Usuario usu = repoUsu.findById(produtoDTO.getVendedorId())
+                .orElseThrow(() -> new EntityNotFoundException("Vendedor with ID: " + produtoDTO.getVendedorId() + " not found"));
+        produto.setCategoria(cat);
+        produto.setVendedor(usu);
+        if (produto.getCategoria().getCategoriaPai() == null){
+            throw new NullCategoriaPaiException();
         }
-    }
-    public void alterarProduto(Produto produto) {
-        ;
         repoProd.save(produto);
+        return Optional.of(produtoDTO);
+
     }
-    public void excluirProduto(Long id){
-        Produto produto = repoProd.findById(id).get();
-        repoProd.save(produto);
-    }
+
+
+
+
+
+
 }

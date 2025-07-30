@@ -2,9 +2,11 @@ package com.lazaro.comprecoisas.controller;
 
 import com.lazaro.comprecoisas.model.Categoria;
 import com.lazaro.comprecoisas.model.Produto;
+import com.lazaro.comprecoisas.model.dtos.ProdutoDTO;
 import com.lazaro.comprecoisas.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/api/produto")
+@RequestMapping(path = "/api/products")
 public class ProdutoController {
 
     private final ProdutoService produtoService;
@@ -23,39 +25,28 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<Produto> showProdutos() {
-        return produtoService.buscarProdutos();
+    public List<ProdutoDTO> showProdutos() {
+        return produtoService.findAll();
     }
 
-    @GetMapping(path = "/id/{id}")
-    public ResponseEntity<Produto> showProdutoByID(@PathVariable Long id) {
-        Optional<Produto> prod = produtoService.buscarProdutoPorId(id);
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<ProdutoDTO> showProdutoByID(@PathVariable Long id) {
+        Optional<ProdutoDTO> prod = produtoService.findById(id);
         return prod.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping(path = "/cat/{categoria}")
-    public List<Produto> showProdutosByCategoria(@PathVariable Long categoria) {
-        return produtoService.buscarProdutosPorCategoria(categoria);
-    }
-
-    @GetMapping(path = "/cat")
-    public List<Categoria> showCategoria() {
-        return produtoService.buscarCat();
+    public List<ProdutoDTO> showProdutosByCategoria(@PathVariable Long categoria) {
+        return produtoService.findByCategoria(categoria);
     }
 
     @PostMapping
-    public ResponseEntity<Produto> salvarProduto(@Valid @RequestBody Produto produto) {
-        Optional<Produto> prod = produtoService.salvarProduto(produto);
-        return prod.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-
-
+    public ResponseEntity<ProdutoDTO> createProduto(@Valid @RequestBody ProdutoDTO produto) {
+        return produtoService.salvarProduto(produto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    @DeleteMapping(path = "/id/{id}")
-    public ResponseEntity<Produto> excluirProduto( @RequestBody Long id) {
-        return null;
-    }
-    @PatchMapping
-    public ResponseEntity<Produto> atualizarProduto( @RequestBody Produto produto) {
-        return null;
+
+    @PutMapping
+    public ResponseEntity<ProdutoDTO> atualizarProduto(@Valid @RequestBody ProdutoDTO produto) {
+        return produtoService.salvarProduto(produto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

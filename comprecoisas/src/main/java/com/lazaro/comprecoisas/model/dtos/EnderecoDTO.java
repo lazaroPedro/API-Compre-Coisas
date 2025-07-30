@@ -1,21 +1,24 @@
-package com.lazaro.comprecoisas.model;
+package com.lazaro.comprecoisas.model.dtos;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
-@Entity
-@Table(name = "enderecos")
-public class Endereco {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_endereco")
+public class EnderecoDTO {
+
     private Long id;
-
+    @NotBlank
     private String rua;
+    @NotBlank
     private String numero;
+    @NotBlank
     private String bairro;
+    @NotBlank
     private String municipio;
+    @NotBlank
     private String estado;
+    @NotBlank
     private String cep;
 
 
@@ -75,6 +78,7 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public Endereco() {
+
+    public EnderecoDTO() {
     }
 }

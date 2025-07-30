@@ -1,6 +1,10 @@
 package com.lazaro.comprecoisas.model.enums;
 
 public enum StatusEntrega {
-    PENDENTE,
+    ENTREGUE,
+    AGUARDANDO,
+    CANCELADO,
+    ATRASADO
+
 
 }

@@ -1,45 +1,42 @@
-package com.lazaro.comprecoisas.model;
+package com.lazaro.comprecoisas.model.dtos;
 
 import com.lazaro.comprecoisas.model.enums.Genero;
 import com.lazaro.comprecoisas.model.enums.StatusConta;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "usuarios")
-public class Usuario {
+public class UsuarioDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
     private Long id;
-
+    @NotBlank
     private String nome;
+    @NotBlank
     private String cpf;
+    @NotBlank
     private String email;
+    @NotBlank
+    private String senha;
+    @NotBlank
     private String telefone;
-    @Column(name = "hash_senha")
-    private String hash;
-    @Column(name = "salt_senha")
-    private String salt;
+    @NotNull
     private Genero genero;
-    @Column(name = "status_conta")
-    private StatusConta statusConta;
-    @Column(name = "data_nascimento")
+
+    private List<Long> enderecosId;
+
+
+
+    @NotNull
     private LocalDateTime dataNascimento;
-    @Column(name = "data_cadastro")
+
+    private StatusConta statusConta;
+
     private LocalDateTime dataCadastro;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "enderecos_usuarios",
-            joinColumns = @JoinColumn(name = "id_endereco"),
-            inverseJoinColumns = @JoinColumn(name = "id_usuario")
-    )
-    private List<Endereco> enderecos;
-    public Usuario() {}
+    public UsuarioDTO() {}
 
     public Long getId() {
         return id;
@@ -81,22 +78,6 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     public Genero getGenero() {
         return genero;
     }
@@ -128,12 +109,18 @@ public class Usuario {
     public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
-
-    public List<Endereco> getEnderecos() {
-        return enderecos;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    public List<Long> getEnderecosId() {
+        return enderecosId;
+    }
+
+    public void setEnderecosId(List<Long> enderecosId) {
+        this.enderecosId = enderecosId;
     }
 }

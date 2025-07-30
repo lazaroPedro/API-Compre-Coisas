@@ -1,4 +1,4 @@
-package com.lazaro.comprecoisas.exceptions;
+package com.lazaro.comprecoisas.infra.exceptions;
 
 public class NullCategoriaPaiException extends RuntimeException {
     public NullCategoriaPaiException(String message) {

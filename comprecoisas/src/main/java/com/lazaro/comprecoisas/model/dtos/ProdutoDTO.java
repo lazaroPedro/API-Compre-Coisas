@@ -1,50 +1,44 @@
-package com.lazaro.comprecoisas.model;
-import com.lazaro.comprecoisas.model.enums.StatusPedido;
+package com.lazaro.comprecoisas.model.dtos;
+
 import com.lazaro.comprecoisas.model.enums.StatusProduto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "produtos")
-public class Produto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_produto")
+public class ProdutoDTO {
+
     private Long id;
 
+    @NotBlank
     private String titulo;
 
+    @NotBlank
     private String descricao;
 
-
+    @Positive
+    @NotNull
     private Double valor;
 
-
+    @Min(0)
+    @Max(100)
     private Float desconto;
 
 
-    @CreationTimestamp
-    @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
+    @NotNull
+    private Long categoriaId;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_categoria")
-    private Categoria categoria;
-
-    @Column(name = "status_produto")
     private StatusProduto statusProduto;
 
-    @OneToOne
-    @JoinColumn(name = "fk_endereco_origem")
-    private Endereco enderecoOrigem;
+    @NotNull
+    private EnderecoDTO enderecoOrigem;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_vendedor")
-    private Usuario vendedor;
+    @NotNull
+    private Long vendedorId;
 
     public Long getId() {
         return id;
@@ -94,12 +88,12 @@ public class Produto {
         this.dataCadastro = dataCadastro;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Long getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     public StatusProduto getStatusProduto() {
@@ -110,22 +104,19 @@ public class Produto {
         this.statusProduto = statusProduto;
     }
 
-    public Endereco getEnderecoOrigem() {
+    public EnderecoDTO getEnderecoOrigem() {
         return enderecoOrigem;
     }
 
-    public void setEnderecoOrigem(Endereco enderecoOrigem) {
+    public void setEnderecoOrigem(EnderecoDTO enderecoOrigem) {
         this.enderecoOrigem = enderecoOrigem;
     }
 
-    public Usuario getVendedor() {
-        return vendedor;
+    public Long getVendedorId() {
+        return vendedorId;
     }
 
-    public void setVendedor(Usuario vendedor) {
-        this.vendedor = vendedor;
-    }
-
-    public Produto() {
+    public void setVendedorId(Long vendedorId) {
+        this.vendedorId = vendedorId;
     }
 }

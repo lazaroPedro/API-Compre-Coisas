@@ -1,8 +1,8 @@
 -- Criar tipos ENUM usados
 CREATE TYPE genero AS ENUM ('MASCULINO', 'FEMININO', 'NAO_INFORMAR', 'OUTRO');
 CREATE TYPE status_conta AS ENUM ('ATIVA', 'EXCLUIDA', 'SUSPENSA', 'ANALISE');
-CREATE TYPE status_produto AS ENUM ('ATIVO', 'EXCLUIDO', 'SEM_ESTOQUE', 'SUSPENSO', 'VENDIDO', 'RESERVADO');
-CREATE TYPE status_entrega AS ENUM ('AGUARDANDO_ENVIO', 'EM_TRANSITO', 'ATRASADO', 'ENTREGUE', 'CANCELADA');
+CREATE TYPE status_produto AS ENUM ('ATIVO', 'EXCLUIDO', 'VENDIDO');
+CREATE TYPE status_entrega AS ENUM ('AGUARDANDO', 'ATRASADO', 'ENTREGUE', 'CANCELADO');
 CREATE TYPE status_pedido AS ENUM ('FINALIZADO', 'EXCLUIDO', 'SUSPENSO', 'PROCESSAMENTO');
 CREATE TYPE tipo_pagamento AS ENUM ('BOLETO', 'PIX', 'CARTAO_DEBITO', 'CARTAO_CREDITO');
 CREATE TYPE status_pagamento AS ENUM ('PAGO', 'PROCESSAMENTO', 'FALHO');
@@ -21,7 +21,6 @@ CREATE TABLE usuarios (
                           nome VARCHAR(255) NOT NULL,
                           email VARCHAR(255) UNIQUE NOT NULL,
                           hash_senha TEXT NOT NULL,
-                          salt_senha TEXT NOT NULL,
                           cpf CHAR(11) UNIQUE NOT NULL,
                           telefone VARCHAR(15) NOT NULL,
                           data_nascimento TIMESTAMP NOT NULL,
@@ -37,11 +36,16 @@ CREATE TABLE enderecos (
                            bairro VARCHAR(255) NOT NULL,
                            municipio VARCHAR(255) NOT NULL,
                            estado VARCHAR(255) NOT NULL,
-                           cep VARCHAR(8) NOT NULL,
-                           fk_usuario BIGINT NOT NULL,
-                           FOREIGN KEY (fk_usuario) REFERENCES usuarios(id_usuario)
-);
+                           cep VARCHAR(8) NOT NULL
 
+);
+CREATE TABLE enderecos_usuarios(
+                        id_endereco BIGINT NOT NULL,
+                        id_usuario BIGINT NOT NULL,
+                        PRIMARY KEY (id_endereco, id_usuario),
+                        FOREIGN KEY (id_endereco) REFERENCES enderecos(id_endereco),
+                        FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+)
 CREATE TABLE produtos (
                           id_produto BIGSERIAL PRIMARY KEY,
                           titulo VARCHAR(255) NOT NULL,
