@@ -1,10 +1,10 @@
 package com.lazaro.comprecoisas.mappers;
 
 import com.lazaro.comprecoisas.model.Entrega;
-import com.lazaro.comprecoisas.model.dtos.EntregaDTO;
+import com.lazaro.comprecoisas.model.dtos.EntregaResponseDTO;
 
 public class MapperEntrega {
-    public static Entrega toEntity(EntregaDTO entrega) {
+    public static Entrega toEntity(EntregaResponseDTO entrega) {
         Entrega entregaRetorno = new Entrega();
         entregaRetorno.setId(entrega.getId());
         entregaRetorno.setFrete(entrega.getFrete());
@@ -16,8 +16,8 @@ public class MapperEntrega {
         entregaRetorno.setEnderecoEntrega(MapperEndereco.toEntity(entrega.getEnderecoEntrega()));
         return entregaRetorno;
     }
-    public static EntregaDTO toDTO(Entrega entrega) {
-        EntregaDTO entregaRetorno = new EntregaDTO();
+    public static EntregaResponseDTO toDTO(Entrega entrega) {
+        EntregaResponseDTO entregaRetorno = new EntregaResponseDTO();
         entregaRetorno.setId(entrega.getId());
         entregaRetorno.setFrete(entrega.getFrete());
         entregaRetorno.setStatus(entrega.getStatus());

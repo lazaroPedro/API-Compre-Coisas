@@ -1,11 +1,9 @@
 package com.lazaro.comprecoisas.model.dtos;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 
-public class EnderecoDTO {
+public class EnderecoResponseDTO {
 
     private Long id;
     @NotBlank
@@ -79,6 +77,6 @@ public class EnderecoDTO {
     }
 
 
-    public EnderecoDTO() {
+    public EnderecoResponseDTO() {
     }
 }

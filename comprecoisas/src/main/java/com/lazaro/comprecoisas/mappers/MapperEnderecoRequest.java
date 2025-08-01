@@ -1,12 +1,12 @@
 package com.lazaro.comprecoisas.mappers;
 
 import com.lazaro.comprecoisas.model.Endereco;
-import com.lazaro.comprecoisas.model.dtos.EnderecoResponseDTO;
+import com.lazaro.comprecoisas.model.dtos.EnderecoRequestDTO;
 
-public class MapperEndereco {
-    public static Endereco toEntity(EnderecoResponseDTO endereco) {
+public class MapperEnderecoRequest {
+    public static Endereco toEntity(EnderecoRequestDTO endereco) {
         Endereco enderecoRetorno = new Endereco();
-        enderecoRetorno.setId(endereco.getId());
+
         enderecoRetorno.setRua(endereco.getRua());
         enderecoRetorno.setNumero(endereco.getNumero());
         enderecoRetorno.setBairro(endereco.getBairro());
@@ -16,9 +16,8 @@ public class MapperEndereco {
 
         return enderecoRetorno;
     }
-    public static EnderecoResponseDTO toDTO(Endereco endereco) {
-        EnderecoResponseDTO enderecoRetorno = new EnderecoResponseDTO();
-        enderecoRetorno.setId(endereco.getId());
+    public static EnderecoRequestDTO toDTO(Endereco endereco) {
+        EnderecoRequestDTO enderecoRetorno = new EnderecoRequestDTO();
         enderecoRetorno.setRua(endereco.getRua());
         enderecoRetorno.setNumero(endereco.getNumero());
         enderecoRetorno.setBairro(endereco.getBairro());

@@ -1,10 +1,10 @@
 package com.lazaro.comprecoisas.mappers;
 
 import com.lazaro.comprecoisas.model.Pagamento;
-import com.lazaro.comprecoisas.model.dtos.PagamentoDTO;
+import com.lazaro.comprecoisas.model.dtos.PagamentoResponseDTO;
 
 public class MapperPagamento {
-    public static Pagamento toEntity(PagamentoDTO pagamento) {
+    public static Pagamento toEntity(PagamentoResponseDTO pagamento) {
         Pagamento pagamentoRetorno = new Pagamento();
         pagamentoRetorno.setId(pagamento.getId());
         pagamentoRetorno.setValorTotal(pagamento.getValorTotal());
@@ -14,8 +14,8 @@ public class MapperPagamento {
         pagamentoRetorno.setIdTransacao(pagamento.getIdTransacao());
         return pagamentoRetorno;
     }
-    public static PagamentoDTO toDTO(Pagamento pagamento) {
-        PagamentoDTO pagamentoRetorno = new PagamentoDTO();
+    public static PagamentoResponseDTO toDTO(Pagamento pagamento) {
+        PagamentoResponseDTO pagamentoRetorno = new PagamentoResponseDTO();
         pagamentoRetorno.setId(pagamento.getId());
         pagamentoRetorno.setValorTotal(pagamento.getValorTotal());
         pagamentoRetorno.setTipoPagamento(pagamento.getTipoPagamento());

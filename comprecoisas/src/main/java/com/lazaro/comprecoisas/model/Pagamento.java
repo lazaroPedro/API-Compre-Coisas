@@ -3,6 +3,7 @@ package com.lazaro.comprecoisas.model;
 import com.lazaro.comprecoisas.model.enums.StatusPagamento;
 import com.lazaro.comprecoisas.model.enums.TipoPagamento;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,7 +20,9 @@ public class Pagamento {
     private BigDecimal valorTotal;
     @Column(name = "tipo_pagamento")
     private TipoPagamento tipoPagamento;
+
     @Column(name = "data_pagamento")
+    @CreationTimestamp
     private LocalDateTime dataPagamento;
     @Column(name = "status_pagamento")
     private StatusPagamento statusPagamento;

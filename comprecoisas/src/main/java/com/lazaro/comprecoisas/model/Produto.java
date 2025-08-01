@@ -1,9 +1,9 @@
 package com.lazaro.comprecoisas.model;
-import com.lazaro.comprecoisas.model.enums.StatusPedido;
 import com.lazaro.comprecoisas.model.enums.StatusProduto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +20,7 @@ public class Produto {
     private String descricao;
 
 
-    private Double valor;
+    private BigDecimal valor;
 
 
     private Float desconto;
@@ -70,11 +70,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

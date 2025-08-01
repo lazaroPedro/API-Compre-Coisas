@@ -1,14 +1,13 @@
 package com.lazaro.comprecoisas.model.dtos;
 
 import com.lazaro.comprecoisas.model.enums.StatusEntrega;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-public class EntregaDTO {
+public class EntregaResponseDTO {
 
     private Long id;
 
@@ -28,7 +27,7 @@ public class EntregaDTO {
     private LocalDate previsaoEntrega;
 
     @NotNull
-    private EnderecoDTO enderecoEntrega;
+    private EnderecoResponseDTO enderecoEntrega;
 
 
     public Long getId() {
@@ -87,14 +86,14 @@ public class EntregaDTO {
         this.previsaoEntrega = previsaoEntrega;
     }
 
-    public EnderecoDTO getEnderecoEntrega() {
+    public EnderecoResponseDTO getEnderecoEntrega() {
         return enderecoEntrega;
     }
 
-    public void setEnderecoEntrega(EnderecoDTO enderecoEntrega) {
+    public void setEnderecoEntrega(EnderecoResponseDTO enderecoEntrega) {
         this.enderecoEntrega = enderecoEntrega;
     }
 
-    public EntregaDTO() {
+    public EntregaResponseDTO() {
     }
 }

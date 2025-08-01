@@ -1,12 +1,11 @@
 package com.lazaro.comprecoisas.mappers;
 
 import com.lazaro.comprecoisas.model.Usuario;
-import com.lazaro.comprecoisas.model.dtos.UsuarioResponseDTO;
+import com.lazaro.comprecoisas.model.dtos.UsuarioRequestDTO;
 
-public class MapperUsuario {
-    public static Usuario toEntity(UsuarioResponseDTO usuario) {
+public class MapperUsuarioRequest {
+    public static Usuario toEntity(UsuarioRequestDTO usuario) {
         Usuario usuarioRetorno = new Usuario();
-        usuarioRetorno.setId(usuario.getId());
         usuarioRetorno.setNome(usuario.getNome());
         usuarioRetorno.setEmail(usuario.getEmail());
         usuarioRetorno.setCpf(usuario.getCpf());
@@ -14,9 +13,8 @@ public class MapperUsuario {
         usuarioRetorno.setGenero(usuario.getGenero());
         return usuarioRetorno;
     }
-    public static UsuarioResponseDTO toDto(Usuario usuario) {
-        UsuarioResponseDTO usuarioRetorno = new UsuarioResponseDTO();
-        usuarioRetorno.setId(usuario.getId());
+    public static UsuarioRequestDTO toDto(Usuario usuario) {
+        UsuarioRequestDTO usuarioRetorno = new UsuarioRequestDTO();
         usuarioRetorno.setNome(usuario.getNome());
         usuarioRetorno.setEmail(usuario.getEmail());
         usuarioRetorno.setCpf(usuario.getCpf());

@@ -1,14 +1,13 @@
 package com.lazaro.comprecoisas.model.dtos;
 
 import com.lazaro.comprecoisas.model.enums.StatusPedido;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 
-public class PedidoDTO {
+public class PedidoResponseDTO {
 
     private Long id;
 
@@ -19,10 +18,10 @@ public class PedidoDTO {
     private Long comprador;
 
     @NotNull
-    private EntregaDTO entrega;
+    private EntregaResponseDTO entrega;
 
     @NotNull
-    private PagamentoDTO pagamento;
+    private PagamentoResponseDTO pagamento;
 
     @NotNull
     private List<Long> produtos;
@@ -59,19 +58,19 @@ public class PedidoDTO {
         this.comprador = comprador;
     }
 
-    public EntregaDTO getEntrega() {
+    public EntregaResponseDTO getEntrega() {
         return entrega;
     }
 
-    public void setEntrega(EntregaDTO entrega) {
+    public void setEntrega(EntregaResponseDTO entrega) {
         this.entrega = entrega;
     }
 
-    public PagamentoDTO getPagamento() {
+    public PagamentoResponseDTO getPagamento() {
         return pagamento;
     }
 
-    public void setPagamento(PagamentoDTO pagamento) {
+    public void setPagamento(PagamentoResponseDTO pagamento) {
         this.pagamento = pagamento;
     }
 
@@ -83,6 +82,6 @@ public class PedidoDTO {
         this.produtos = produtos;
     }
 
-    public PedidoDTO() {
+    public PedidoResponseDTO() {
     }
 }

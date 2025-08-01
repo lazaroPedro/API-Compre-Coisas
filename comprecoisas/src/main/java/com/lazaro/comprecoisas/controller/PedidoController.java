@@ -1,6 +1,8 @@
 package com.lazaro.comprecoisas.controller;
 
 import com.lazaro.comprecoisas.model.Pedido;
+import com.lazaro.comprecoisas.model.dtos.PedidoResponseDTO;
+import com.lazaro.comprecoisas.model.dtos.PedidoRequestDTO;
 import com.lazaro.comprecoisas.service.PedidoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class PedidoController {
         return pedidoService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     @PostMapping
-    public ResponseEntity<Pedido> addPedido(@RequestBody @Valid Pedido pedido) {
+    public ResponseEntity<PedidoResponseDTO> addPedido(@RequestBody @Valid PedidoRequestDTO pedido) {
         return pedidoService.createPedido(pedido).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 

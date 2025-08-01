@@ -1,12 +1,10 @@
 package com.lazaro.comprecoisas.controller;
 
-import com.lazaro.comprecoisas.model.Categoria;
-import com.lazaro.comprecoisas.model.Produto;
-import com.lazaro.comprecoisas.model.dtos.ProdutoDTO;
+import com.lazaro.comprecoisas.model.dtos.ProdutoResponseDTO;
+import com.lazaro.comprecoisas.model.dtos.ProdutoRequestDTO;
 import com.lazaro.comprecoisas.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,28 +23,28 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<ProdutoDTO> showProdutos() {
+    public List<ProdutoResponseDTO> showProdutos() {
         return produtoService.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ProdutoDTO> showProdutoByID(@PathVariable Long id) {
-        Optional<ProdutoDTO> prod = produtoService.findById(id);
+    public ResponseEntity<ProdutoResponseDTO> showProdutoByID(@PathVariable Long id) {
+        Optional<ProdutoResponseDTO> prod = produtoService.findById(id);
         return prod.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping(path = "/cat/{categoria}")
-    public List<ProdutoDTO> showProdutosByCategoria(@PathVariable Long categoria) {
+    public List<ProdutoResponseDTO> showProdutosByCategoria(@PathVariable Long categoria) {
         return produtoService.findByCategoria(categoria);
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoDTO> createProduto(@Valid @RequestBody ProdutoDTO produto) {
+    public ResponseEntity<ProdutoResponseDTO> createProduto(@Valid @RequestBody ProdutoRequestDTO produto) {
         return produtoService.salvarProduto(produto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping
-    public ResponseEntity<ProdutoDTO> atualizarProduto(@Valid @RequestBody ProdutoDTO produto) {
+    public ResponseEntity<ProdutoResponseDTO> atualizarProduto(@Valid @RequestBody ProdutoRequestDTO produto) {
         return produtoService.salvarProduto(produto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

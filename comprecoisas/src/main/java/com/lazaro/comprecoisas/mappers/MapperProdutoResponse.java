@@ -1,11 +1,11 @@
 package com.lazaro.comprecoisas.mappers;
 
 import com.lazaro.comprecoisas.model.Produto;
-import com.lazaro.comprecoisas.model.dtos.ProdutoDTO;
+import com.lazaro.comprecoisas.model.dtos.ProdutoResponseDTO;
 
-public class MapperProduto {
-    private MapperProduto() {}
-    public static Produto toEntity(ProdutoDTO produto) {
+public class MapperProdutoResponse {
+    private MapperProdutoResponse() {}
+    public static Produto toEntity(ProdutoResponseDTO produto) {
         Produto produtoRetorno = new Produto();
         produtoRetorno.setId(produto.getId());
         produtoRetorno.setTitulo(produto.getTitulo());
@@ -18,8 +18,8 @@ public class MapperProduto {
 
         return produtoRetorno;
     }
-    public static ProdutoDTO toDTO(Produto produto) {
-        ProdutoDTO produtoRetorno = new ProdutoDTO();
+    public static ProdutoResponseDTO toDTO(Produto produto) {
+        ProdutoResponseDTO produtoRetorno = new ProdutoResponseDTO();
         produtoRetorno.setId(produto.getId());
         produtoRetorno.setTitulo(produto.getTitulo());
         produtoRetorno.setDescricao(produto.getDescricao());

@@ -14,4 +14,5 @@ import java.util.Optional;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     List<Produto> findByCategoria(Categoria categoria);
     List<Produto> findByStatusProduto(StatusProduto statusProduto);
+    List<Produto> findByIdIn(List<Long> ids);
 }

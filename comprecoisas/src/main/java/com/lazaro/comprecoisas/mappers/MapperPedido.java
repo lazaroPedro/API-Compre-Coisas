@@ -2,10 +2,10 @@ package com.lazaro.comprecoisas.mappers;
 
 import com.lazaro.comprecoisas.model.Pedido;
 import com.lazaro.comprecoisas.model.Produto;
-import com.lazaro.comprecoisas.model.dtos.PedidoDTO;
+import com.lazaro.comprecoisas.model.dtos.PedidoResponseDTO;
 
 public class MapperPedido {
-    public static Pedido toEntity(PedidoDTO pedido) {
+    public static Pedido toEntity(PedidoResponseDTO pedido) {
         Pedido pedidoRetorno = new Pedido();
         pedidoRetorno.setId(pedido.getId());
         pedidoRetorno.setDataPedido(pedido.getDataPedido());
@@ -17,8 +17,8 @@ public class MapperPedido {
 
         return pedidoRetorno;
     }
-    public static PedidoDTO toDTO(Pedido pedido) {
-        PedidoDTO pedidoRetorno = new PedidoDTO();
+    public static PedidoResponseDTO toDTO(Pedido pedido) {
+        PedidoResponseDTO pedidoRetorno = new PedidoResponseDTO();
         pedidoRetorno.setId(pedido.getId());
         pedidoRetorno.setDataPedido(pedido.getDataPedido());
         pedidoRetorno.setStatusPedido(pedido.getStatusPedido());

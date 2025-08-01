@@ -1,43 +1,22 @@
 package com.lazaro.comprecoisas.model.dtos;
 
 import com.lazaro.comprecoisas.model.enums.StatusProduto;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
-public class ProdutoDTO {
+public class ProdutoResponseDTO {
 
     private Long id;
-
-    @NotBlank
     private String titulo;
-
-    @NotBlank
     private String descricao;
-
-    @Positive
-    @NotNull
-    private Double valor;
-
-    @Min(0)
-    @Max(100)
+    private BigDecimal valor;
     private Float desconto;
-
-
     private LocalDateTime dataCadastro;
-
-    @NotNull
     private Long categoriaId;
-
     private StatusProduto statusProduto;
-
-    @NotNull
-    private EnderecoDTO enderecoOrigem;
-
-    @NotNull
+    private EnderecoResponseDTO enderecoOrigem;
     private Long vendedorId;
 
     public Long getId() {
@@ -64,11 +43,11 @@ public class ProdutoDTO {
         this.descricao = descricao;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
@@ -104,11 +83,11 @@ public class ProdutoDTO {
         this.statusProduto = statusProduto;
     }
 
-    public EnderecoDTO getEnderecoOrigem() {
+    public EnderecoResponseDTO getEnderecoOrigem() {
         return enderecoOrigem;
     }
 
-    public void setEnderecoOrigem(EnderecoDTO enderecoOrigem) {
+    public void setEnderecoOrigem(EnderecoResponseDTO enderecoOrigem) {
         this.enderecoOrigem = enderecoOrigem;
     }
 

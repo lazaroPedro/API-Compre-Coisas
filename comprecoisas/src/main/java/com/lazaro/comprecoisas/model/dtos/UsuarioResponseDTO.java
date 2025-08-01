@@ -2,14 +2,13 @@ package com.lazaro.comprecoisas.model.dtos;
 
 import com.lazaro.comprecoisas.model.enums.Genero;
 import com.lazaro.comprecoisas.model.enums.StatusConta;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class UsuarioDTO {
+public class UsuarioResponseDTO {
 
     private Long id;
     @NotBlank
@@ -36,7 +35,7 @@ public class UsuarioDTO {
 
     private LocalDateTime dataCadastro;
 
-    public UsuarioDTO() {}
+    public UsuarioResponseDTO() {}
 
     public Long getId() {
         return id;

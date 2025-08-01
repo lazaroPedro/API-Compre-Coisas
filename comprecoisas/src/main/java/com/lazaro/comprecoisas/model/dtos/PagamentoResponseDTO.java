@@ -2,13 +2,12 @@ package com.lazaro.comprecoisas.model.dtos;
 
 import com.lazaro.comprecoisas.model.enums.StatusPagamento;
 import com.lazaro.comprecoisas.model.enums.TipoPagamento;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class PagamentoDTO {
+public class PagamentoResponseDTO {
 
 
     private Long id;
@@ -73,6 +72,6 @@ public class PagamentoDTO {
         this.idTransacao = idTransacao;
     }
 
-    public PagamentoDTO() {
+    public PagamentoResponseDTO() {
     }
 }

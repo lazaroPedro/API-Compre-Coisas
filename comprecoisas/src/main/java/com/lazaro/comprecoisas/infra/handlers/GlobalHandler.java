@@ -1,6 +1,7 @@
 package com.lazaro.comprecoisas.infra.handlers;
 
 import com.lazaro.comprecoisas.infra.exceptions.NullCategoriaPaiException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,10 @@ public class GlobalHandler {
     }
     @ExceptionHandler(NullCategoriaPaiException.class)
     public ResponseEntity<String> handleNullCategoriaPaiException(NullCategoriaPaiException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }
